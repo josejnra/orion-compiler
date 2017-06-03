@@ -1,5 +1,5 @@
    1 lexema: program 	na linha 1
-   2 lexema: integer 	na linha 2
+   2 lexema: integer  	na linha 2
 	Erro na linha: 2 	caractere desconhecido: : 
 	Erro na linha: 2 	caractere desconhecido: w 
 	Erro na linha: 2 	caractere desconhecido: e 
@@ -14,7 +14,10 @@
 	Erro na linha: 2 	caractere desconhecido: u 
 	Erro na linha: 2 	caractere desconhecido: p 
 	Erro na linha: 2 	caractere desconhecido: , 
-   3 lexema: char 	na linha 2
+	Erro na linha: 2 	caractere desconhecido: c 
+	Erro na linha: 2 	caractere desconhecido: h 
+	Erro na linha: 2 	caractere desconhecido: a 
+	Erro na linha: 2 	caractere desconhecido: r 
 	Erro na linha: 2 	caractere desconhecido: g 
 	Erro na linha: 2 	caractere desconhecido: e 
 	Erro na linha: 2 	caractere desconhecido: , 
@@ -27,7 +30,7 @@
 	Erro na linha: 2 	caractere desconhecido: c 
 	Erro na linha: 2 	caractere desconhecido: e 
 	Erro na linha: 2 	caractere desconhecido: ; 
-   4 lexema: begin 	na linha 3
+   3 lexema: begin 	na linha 3
 	Erro na linha: 4 	caractere desconhecido: d 
 	Erro na linha: 4 	caractere desconhecido: i 
 	Erro na linha: 4 	caractere desconhecido: s 
@@ -38,9 +41,9 @@
 	Erro na linha: 4 	caractere desconhecido: e 
 	Erro na linha: 4 	caractere desconhecido: : 
 	Erro na linha: 4 	caractere desconhecido: = 
-   5 lexema: 2300 	na linha 4
+   4 lexema: 2300 	na linha 4
 	Erro na linha: 4 	caractere desconhecido: ; 
-   6 lexema: read 	na linha 5
+   5 lexema: read  	na linha 5
 	Erro na linha: 5 	caractere desconhecido: w 
 	Erro na linha: 5 	caractere desconhecido: e 
 	Erro na linha: 5 	caractere desconhecido: i 
@@ -48,7 +51,7 @@
 	Erro na linha: 5 	caractere desconhecido: h 
 	Erro na linha: 5 	caractere desconhecido: t 
 	Erro na linha: 5 	caractere desconhecido: ; 
-   7 lexema: if 	na linha 6
+   6 lexema: if  	na linha 6
 	Erro na linha: 6 	caractere desconhecido: w 
 	Erro na linha: 6 	caractere desconhecido: e 
 	Erro na linha: 6 	caractere desconhecido: i 
@@ -56,8 +59,8 @@
 	Erro na linha: 6 	caractere desconhecido: h 
 	Erro na linha: 6 	caractere desconhecido: t 
 	Erro na linha: 6 	caractere desconhecido: > 
-   8 lexema: 60 	na linha 6
-   9 lexema: then 	na linha 6
+   7 lexema: 60 	na linha 6
+   8 lexema: then  	na linha 6
 	Erro na linha: 6 	caractere desconhecido: g 
 	Erro na linha: 6 	caractere desconhecido: r 
 	Erro na linha: 6 	caractere desconhecido: o 
@@ -65,8 +68,8 @@
 	Erro na linha: 6 	caractere desconhecido: p 
 	Erro na linha: 6 	caractere desconhecido: : 
 	Erro na linha: 6 	caractere desconhecido: = 
-  10 lexema: 5 	na linha 6
-  11 lexema: else 	na linha 7
+   9 lexema: 5 	na linha 6
+  10 lexema: else  	na linha 7
 	Erro na linha: 7 	caractere desconhecido: g 
 	Erro na linha: 7 	caractere desconhecido: r 
 	Erro na linha: 7 	caractere desconhecido: o 
@@ -82,20 +85,23 @@
 	Erro na linha: 7 	caractere desconhecido: h 
 	Erro na linha: 7 	caractere desconhecido: t 
 	Erro na linha: 7 	caractere desconhecido: + 
-  12 lexema: 14 	na linha 7
+  11 lexema: 14 	na linha 7
 	Erro na linha: 7 	caractere desconhecido: ) 
 	Erro na linha: 7 	caractere desconhecido: / 
-  13 lexema: 15 	na linha 7
-  14 lexema: endif 	na linha 8
+  12 lexema: 15 	na linha 7
+  13 lexema: endif 	na linha 8
 	Erro na linha: 8 	caractere desconhecido: ; 
-  15 lexema: char 	na linha 9
+	Erro na linha: 9 	caractere desconhecido: c 
+	Erro na linha: 9 	caractere desconhecido: h 
+	Erro na linha: 9 	caractere desconhecido: a 
+	Erro na linha: 9 	caractere desconhecido: r 
 	Erro na linha: 9 	caractere desconhecido: g 
 	Erro na linha: 9 	caractere desconhecido: e 
 	Erro na linha: 9 	caractere desconhecido: : 
 	Erro na linha: 9 	caractere desconhecido: = 
-  16 lexema: 40 	na linha 9
+  14 lexema: 40 	na linha 9
 	Erro na linha: 9 	caractere desconhecido: + 
-  17 lexema: 3 	na linha 9
+  15 lexema: 3 	na linha 9
 	Erro na linha: 9 	caractere desconhecido: * 
 	Erro na linha: 9 	caractere desconhecido: ( 
 	Erro na linha: 9 	caractere desconhecido: d 
@@ -107,12 +113,15 @@
 	Erro na linha: 9 	caractere desconhecido: c 
 	Erro na linha: 9 	caractere desconhecido: e 
 	Erro na linha: 9 	caractere desconhecido: / 
-  18 lexema: 1000 	na linha 9
+  16 lexema: 1000 	na linha 9
 	Erro na linha: 9 	caractere desconhecido: ) 
-  19 lexema: write 	na linha 10
-  20 lexema: char 	na linha 10
+  17 lexema: write 	na linha 10
+	Erro na linha: 10 	caractere desconhecido: c 
+	Erro na linha: 10 	caractere desconhecido: h 
+	Erro na linha: 10 	caractere desconhecido: a 
+	Erro na linha: 10 	caractere desconhecido: r 
 	Erro na linha: 10 	caractere desconhecido: g 
 	Erro na linha: 10 	caractere desconhecido: e 
-  21 lexema: end 	na linha 11
-	Numero total de lexemas reconhecidos = 21
-	Número total de erros = 95
+  18 lexema: end 	na linha 11
+	Numero total de lexemas reconhecidos = 18
+	Número total de erros = 107

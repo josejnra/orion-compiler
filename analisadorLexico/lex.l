@@ -34,30 +34,30 @@ word			{letter}+
 
 	/*Seção 2.1.1 - Identificadores */
 "begin"							lexemefound();
-"boolean"						lexemefound();
-"char"							lexemefound();
-"do"							lexemefound();
-"else"							lexemefound();
+"boolean "						lexemefound();
+"char "							lexemefound();
+"do "							lexemefound();
+"else "							lexemefound();
 "end"							lexemefound();
-"false"							lexemefound();
+"false "							lexemefound();
 "endif"							lexemefound();
 "endwhile"						lexemefound();
 "exit"							lexemefound();
-"if"							lexemefound();
-"integer"						lexemefound();
-"procedure"						lexemefound();
+"if "							lexemefound();
+"integer "						lexemefound();
+"procedure "						lexemefound();
 "program"                      			 	lexemefound();
 "reference"						lexemefound();
-"repeat"						lexemefound();
-"read"							lexemefound();
-"return"						lexemefound();
-"then"							lexemefound();
-"true"							lexemefound();
-"type"							lexemefound();
-"until"							lexemefound();
+"repeat "						lexemefound();
+"read "							lexemefound();
+"return "						lexemefound();
+"then "							lexemefound();
+"true "							lexemefound();
+"type "							lexemefound();
+"until "							lexemefound();
 "value"							lexemefound();
 "write"							lexemefound();
-"while"							
+"while "							
 
 
 	/* conta linhas */
