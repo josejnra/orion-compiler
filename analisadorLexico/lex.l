@@ -1,11 +1,15 @@
 /*** seção de definição ***/
 %{
+	/* definicoes de constantes manifestas */
 
 int qtdLexema = 0;
 int linha = 1;
 int qtdErros = 0;
+
 FILE *saida;
-/* definicoes de constantes manifestas */
+
+extern void error();
+extern void lexemefound();
 
 %}
 
@@ -26,22 +30,84 @@ word			{letter}+
 %%
 	/*** seção de regras ***/
 {ws}    			{/*nenhuma acao e nenhum retorno*/}
-{positivo}          { printf("%4d lexema: %s \tna linha %d\n", qtdLexema + 1, yytext, linha);
-                      fprintf(saida, "%4d lexema: %s \tna linha %d\n", qtdLexema + 1, yytext, linha);
-                      qtdLexema++;
-                    }
-\n linha++;
-\{|\}                   { printf("\tErro na linha: %d \tcaractere desconhecido: %s \n", linha, yytext);
-                      fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido: %s \n", linha, yytext);
-                      qtdErros++;
-                    }
-.	;				/* Qualquer caractere exceto \n", assim sempre saltará de linha quando não identificar uma entrada,
-                     não imprimindo nada na tela*/
+{positivo}          					lexemefound();
 
+	/*Seção 2.1.1 - Identificadores */
+"begin"							lexemefound();
+"boolean "						lexemefound();
+"char "							lexemefound();
+"do "							lexemefound();
+"else "							lexemefound();
+"end"							lexemefound();
+"false "						lexemefound();
+"endif"							lexemefound();
+"endwhile"						lexemefound();
+"exit"							lexemefound();
+"if "							lexemefound();
+"integer "						lexemefound();
+"procedure "						lexemefound();
+"program"                      			 	lexemefound();
+"reference"						lexemefound();
+"repeat "						lexemefound();
+"read "							lexemefound();
+"return "						lexemefound();
+"then "							lexemefound();
+"true "							lexemefound();
+"type "							lexemefound();
+"until "						lexemefound();
+"value"							lexemefound();
+"write"							lexemefound();
+"while "						lexemefound();
+
+	/*Seção 2.1.8 - Expressões */
+[|]							lexemefound();
+&							lexemefound();
+[<]							lexemefound();
+[>]							lexemefound();
+[=]							lexemefound();
+[<][=]							lexemefound();
+[>][=]							lexemefound();
+"not"[=]						lexemefound();
+"not"							lexemefound();
+[+]							lexemefound();
+[-]							lexemefound();
+[*]							lexemefound();
+[/]							lexemefound();
+[*]{2}							lexemefound();
+
+	/*Seção 2.1.12 - Atribuição */
+[:][=]							lexemefound();
+
+	/*Outros caracteres...*/
+[:]							lexemefound();
+[,]							lexemefound();
+[;]							lexemefound();
+[']							lexemefound();
+[(]							lexemefound();
+[)]							lexemefound();
+
+
+	/* conta linhas */
+\n linha++;
+	
+
+	/* erro de sintaxe */
+.	;		error(); 		/* Ao encontrar um caractere, e este não se encaixar em nenhuma entrada, será identificado como um erro */
 %%
 
 /*** seção de código C ***/
-
+void lexemefound()
+{ 
+	printf("%4d lexema: %s \tna linha %d\n", qtdLexema + 1, yytext, linha);
+        fprintf(saida, "%4d lexema: %s \tna linha %d\n", qtdLexema + 1, yytext, linha);
+        qtdLexema++;
+}
+void error()
+{
+	printf("\tErro na linha: %d \tcaractere desconhecido: %s \n", linha, yytext);
+	fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido: %s \n", linha, yytext);
+	qtdErros++;     
+}
 
 int main(int argc, char *argv[]){
     /* executa o analisador léxico. */

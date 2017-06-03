@@ -1,0 +1,123 @@
+   1 lexema: program 	na linha 1
+   2 lexema: integer  	na linha 2
+   3 lexema: : 	na linha 2
+	Erro na linha: 2 	caractere desconhecido: w 
+	Erro na linha: 2 	caractere desconhecido: e 
+	Erro na linha: 2 	caractere desconhecido: i 
+	Erro na linha: 2 	caractere desconhecido: g 
+	Erro na linha: 2 	caractere desconhecido: h 
+	Erro na linha: 2 	caractere desconhecido: t 
+   4 lexema: , 	na linha 2
+	Erro na linha: 2 	caractere desconhecido: g 
+	Erro na linha: 2 	caractere desconhecido: r 
+	Erro na linha: 2 	caractere desconhecido: o 
+	Erro na linha: 2 	caractere desconhecido: u 
+	Erro na linha: 2 	caractere desconhecido: p 
+   5 lexema: , 	na linha 2
+	Erro na linha: 2 	caractere desconhecido: c 
+	Erro na linha: 2 	caractere desconhecido: h 
+	Erro na linha: 2 	caractere desconhecido: a 
+	Erro na linha: 2 	caractere desconhecido: r 
+	Erro na linha: 2 	caractere desconhecido: g 
+	Erro na linha: 2 	caractere desconhecido: e 
+   6 lexema: , 	na linha 2
+	Erro na linha: 2 	caractere desconhecido: d 
+	Erro na linha: 2 	caractere desconhecido: i 
+	Erro na linha: 2 	caractere desconhecido: s 
+	Erro na linha: 2 	caractere desconhecido: t 
+	Erro na linha: 2 	caractere desconhecido: a 
+	Erro na linha: 2 	caractere desconhecido: n 
+	Erro na linha: 2 	caractere desconhecido: c 
+	Erro na linha: 2 	caractere desconhecido: e 
+   7 lexema: ; 	na linha 2
+   8 lexema: begin 	na linha 3
+	Erro na linha: 4 	caractere desconhecido: d 
+	Erro na linha: 4 	caractere desconhecido: i 
+	Erro na linha: 4 	caractere desconhecido: s 
+	Erro na linha: 4 	caractere desconhecido: t 
+	Erro na linha: 4 	caractere desconhecido: a 
+	Erro na linha: 4 	caractere desconhecido: n 
+	Erro na linha: 4 	caractere desconhecido: c 
+	Erro na linha: 4 	caractere desconhecido: e 
+   9 lexema: := 	na linha 4
+  10 lexema: 2300 	na linha 4
+  11 lexema: ; 	na linha 4
+  12 lexema: read  	na linha 5
+	Erro na linha: 5 	caractere desconhecido: w 
+	Erro na linha: 5 	caractere desconhecido: e 
+	Erro na linha: 5 	caractere desconhecido: i 
+	Erro na linha: 5 	caractere desconhecido: g 
+	Erro na linha: 5 	caractere desconhecido: h 
+	Erro na linha: 5 	caractere desconhecido: t 
+  13 lexema: ; 	na linha 5
+  14 lexema: if  	na linha 6
+	Erro na linha: 6 	caractere desconhecido: w 
+	Erro na linha: 6 	caractere desconhecido: e 
+	Erro na linha: 6 	caractere desconhecido: i 
+	Erro na linha: 6 	caractere desconhecido: g 
+	Erro na linha: 6 	caractere desconhecido: h 
+	Erro na linha: 6 	caractere desconhecido: t 
+  15 lexema: not= 	na linha 6
+  16 lexema: 60 	na linha 6
+  17 lexema: then  	na linha 6
+	Erro na linha: 6 	caractere desconhecido: g 
+	Erro na linha: 6 	caractere desconhecido: r 
+	Erro na linha: 6 	caractere desconhecido: o 
+	Erro na linha: 6 	caractere desconhecido: u 
+	Erro na linha: 6 	caractere desconhecido: p 
+  18 lexema: := 	na linha 6
+  19 lexema: 5 	na linha 6
+  20 lexema: else  	na linha 7
+	Erro na linha: 7 	caractere desconhecido: g 
+	Erro na linha: 7 	caractere desconhecido: r 
+	Erro na linha: 7 	caractere desconhecido: o 
+	Erro na linha: 7 	caractere desconhecido: u 
+	Erro na linha: 7 	caractere desconhecido: p 
+  21 lexema: := 	na linha 7
+  22 lexema: ( 	na linha 7
+	Erro na linha: 7 	caractere desconhecido: w 
+	Erro na linha: 7 	caractere desconhecido: e 
+	Erro na linha: 7 	caractere desconhecido: i 
+	Erro na linha: 7 	caractere desconhecido: g 
+	Erro na linha: 7 	caractere desconhecido: h 
+	Erro na linha: 7 	caractere desconhecido: t 
+  23 lexema: + 	na linha 7
+  24 lexema: 14 	na linha 7
+  25 lexema: ) 	na linha 7
+  26 lexema: / 	na linha 7
+  27 lexema: 15 	na linha 7
+  28 lexema: endif 	na linha 8
+  29 lexema: ; 	na linha 8
+	Erro na linha: 9 	caractere desconhecido: c 
+	Erro na linha: 9 	caractere desconhecido: h 
+	Erro na linha: 9 	caractere desconhecido: a 
+	Erro na linha: 9 	caractere desconhecido: r 
+	Erro na linha: 9 	caractere desconhecido: g 
+	Erro na linha: 9 	caractere desconhecido: e 
+  30 lexema: := 	na linha 9
+  31 lexema: 40 	na linha 9
+  32 lexema: + 	na linha 9
+  33 lexema: 3 	na linha 9
+  34 lexema: * 	na linha 9
+  35 lexema: ( 	na linha 9
+	Erro na linha: 9 	caractere desconhecido: d 
+	Erro na linha: 9 	caractere desconhecido: i 
+	Erro na linha: 9 	caractere desconhecido: s 
+	Erro na linha: 9 	caractere desconhecido: t 
+	Erro na linha: 9 	caractere desconhecido: a 
+	Erro na linha: 9 	caractere desconhecido: n 
+	Erro na linha: 9 	caractere desconhecido: c 
+	Erro na linha: 9 	caractere desconhecido: e 
+  36 lexema: / 	na linha 9
+  37 lexema: 1000 	na linha 9
+  38 lexema: ) 	na linha 9
+  39 lexema: write 	na linha 10
+	Erro na linha: 10 	caractere desconhecido: c 
+	Erro na linha: 10 	caractere desconhecido: h 
+	Erro na linha: 10 	caractere desconhecido: a 
+	Erro na linha: 10 	caractere desconhecido: r 
+	Erro na linha: 10 	caractere desconhecido: g 
+	Erro na linha: 10 	caractere desconhecido: e 
+  40 lexema: end 	na linha 11
+	Numero total de lexemas reconhecidos = 40
+	Número total de erros = 81
