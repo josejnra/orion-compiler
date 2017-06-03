@@ -57,7 +57,34 @@ word			{letter}+
 "until "						lexemefound();
 "value"							lexemefound();
 "write"							lexemefound();
-"while "							
+"while "						lexemefound();
+
+	/*Seção 2.1.8 - Expressões */
+[|]							lexemefound();
+&							lexemefound();
+[<]							lexemefound();
+[>]							lexemefound();
+[=]							lexemefound();
+[<][=]							lexemefound();
+[>][=]							lexemefound();
+[not][=]						lexemefound();
+"not"							lexemefound();
+[+]							lexemefound();
+[-]							lexemefound();
+[*]							lexemefound();
+[/]							lexemefound();
+[*]{2}							lexemefound();
+
+	/*Seção 2.1.12 - Atribuição */
+[:][=]							lexemefound();
+
+	/*Outros caracteres...*/
+:							lexemefound();
+,							lexemefound();
+;							lexemefound();
+[']							lexemefound();
+[(]							lexemefound();
+[)]							lexemefound();
 
 
 	/* conta linhas */
