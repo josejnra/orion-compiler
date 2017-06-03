@@ -39,7 +39,7 @@ word			{letter}+
 "do "							lexemefound();
 "else "							lexemefound();
 "end"							lexemefound();
-"false "							lexemefound();
+"false "						lexemefound();
 "endif"							lexemefound();
 "endwhile"						lexemefound();
 "exit"							lexemefound();
@@ -54,7 +54,7 @@ word			{letter}+
 "then "							lexemefound();
 "true "							lexemefound();
 "type "							lexemefound();
-"until "							lexemefound();
+"until "						lexemefound();
 "value"							lexemefound();
 "write"							lexemefound();
 "while "							
