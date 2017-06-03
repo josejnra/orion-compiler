@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1496455580 source:/home/jose/Documents/Lex/teste com menu/analisadorLexico/main.c
+	<stdio.h>
+	<sys/types.h>
+	<string.h>
+	<unistd.h>
+
