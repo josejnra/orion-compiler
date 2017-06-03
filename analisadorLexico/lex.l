@@ -67,7 +67,7 @@ word			{letter}+
 [=]							lexemefound();
 [<][=]							lexemefound();
 [>][=]							lexemefound();
-[not][=]						lexemefound();
+"not"[=]						lexemefound();
 "not"							lexemefound();
 [+]							lexemefound();
 [-]							lexemefound();
@@ -79,9 +79,9 @@ word			{letter}+
 [:][=]							lexemefound();
 
 	/*Outros caracteres...*/
-:							lexemefound();
-,							lexemefound();
-;							lexemefound();
+[:]							lexemefound();
+[,]							lexemefound();
+[;]							lexemefound();
 [']							lexemefound();
 [(]							lexemefound();
 [)]							lexemefound();
