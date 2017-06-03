@@ -5,3 +5,9 @@
 	<string.h>
 	<unistd.h>
 
+1496457705 source:/home/adriele/Dropbox/CIÊNCIA DA COMPUTAÇÃO -  UFV/7º SEMESTRE/Compiladores/Orion-Compiler/analisadorLexico/main.c
+	<stdio.h>
+	<sys/types.h>
+	<string.h>
+	<unistd.h>
+
