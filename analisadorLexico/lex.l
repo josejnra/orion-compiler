@@ -21,71 +21,85 @@ extern void lexemefound();
 delim   		[ \t]
 ws      		{delim}+
 letter			[A-Za-z]
+constante       -?[0-9]+
+valor           -?(([0-9]+)|([0-9]*\.[0-9]+))
 digit			[0-9]
 number			{digit}+
 positivo		\+?{number}
 word			{letter}+
-
+sufixoidentificador   {letter}|{digit}
 
 %%
 	/*** seção de regras ***/
 {ws}    			{/*nenhuma acao e nenhum retorno*/}
-{positivo}          					lexemefound();
 
-	/*Seção 2.1.1 - Identificadores */
-"begin"							lexemefound();
-"boolean "						lexemefound();
-"char "							lexemefound();
-"do "							lexemefound();
-"else "							lexemefound();
-"end"							lexemefound();
-"false "						lexemefound();
-"endif"							lexemefound();
-"endwhile"						lexemefound();
-"exit"							lexemefound();
-"if "							lexemefound();
-"integer "						lexemefound();
-"procedure "						lexemefound();
-"program"                      			 	lexemefound();
-"reference"						lexemefound();
-"repeat "						lexemefound();
-"read "							lexemefound();
-"return "						lexemefound();
-"then "							lexemefound();
-"true "							lexemefound();
-"type "							lexemefound();
-"until "						lexemefound();
-"value"							lexemefound();
-"write"							lexemefound();
-"while "						lexemefound();
+	/*Seção 2.1.1 - Identificadores (palavras chave)*/
+"begin"							lexemefound("palavra chave");
+"boolean "						lexemefound("palavra chave");
+"char "							lexemefound("palavra chave");
+"do "							lexemefound("palavra chave");
+"else "							lexemefound("palavra chave");
+"end"							lexemefound("palavra chave");
+"false "						lexemefound("palavra chave");
+"endif"							lexemefound("palavra chave");
+"endwhile"						lexemefound("palavra chave");
+"exit"							lexemefound("palavra chave");
+"if "							lexemefound("palavra chave");
+"integer "						lexemefound("palavra chave");
+"procedure "					lexemefound("palavra chave");
+"program"                      	lexemefound("palavra chave");
+"reference"						lexemefound("palavra chave");
+"repeat "						lexemefound("palavra chave");
+"read "							lexemefound("palavra chave");
+"return "						lexemefound("palavra chave");
+"then "							lexemefound("palavra chave");
+"true "							lexemefound("palavra chave");
+"type "							lexemefound("palavra chave");
+"until "						lexemefound("palavra chave");
+"value"							lexemefound("palavra chave");
+"write"							lexemefound("palavra chave");
+"while "						lexemefound("palavra chave");
 
 	/*Seção 2.1.8 - Expressões */
-[|]							lexemefound();
-&							lexemefound();
-[<]							lexemefound();
-[>]							lexemefound();
-[=]							lexemefound();
-[<][=]							lexemefound();
-[>][=]							lexemefound();
-"not"[=]						lexemefound();
-"not"							lexemefound();
-[+]							lexemefound();
-[-]							lexemefound();
-[*]							lexemefound();
-[/]							lexemefound();
-[*]{2}							lexemefound();
+[|]							lexemefound("expressão");
+&							lexemefound("expressão");
+[<]							lexemefound("expressão");
+[>]							lexemefound("expressão");
+[=]							lexemefound("expressão");
+[<][=]						lexemefound("expressão");
+[>][=]						lexemefound("expressão");
+"not"[=]					lexemefound("expressão");
+"not"						lexemefound("expressão");
+[+]							lexemefound("expressão");
+[-]							lexemefound("expressão");
+[*]							lexemefound("expressão");
+[/]							lexemefound("expressão");
+[*]{2}						lexemefound("expressão");
 
 	/*Seção 2.1.12 - Atribuição */
-[:][=]							lexemefound();
+[:][=]						lexemefound("atribuição");
 
 	/*Outros caracteres...*/
-[:]							lexemefound();
-[,]							lexemefound();
-[;]							lexemefound();
-[']							lexemefound();
-[(]							lexemefound();
-[)]							lexemefound();
+[:]							lexemefound("caractere especial");
+[,]							lexemefound("caractere especial");
+[;]							lexemefound("caractere especial");
+[']							lexemefound("caractere especial");
+[(]							lexemefound("caractere especial");
+[)]							lexemefound("caractere especial");
 
+	/* 2.1.3 Comentários */
+[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]       lexemefound("comentário");
+[/][*]                                    { printf("\tErro na linha: %d \tComentário não finalizado: %s \n", linha, yytext);
+											fprintf(saida, "\tErro na linha: %d \tComentário não finalizado: %s \n", linha, yytext);
+											qtdErros++;   }
+
+	/*Seção 2.1.1 - Identificadores de tamanho 32 no máximo*/
+{letter}{sufixoidentificador}{0,31}          lexemefound("identificador");
+
+
+    /* 2.1.2 Constantes */
+{constante}       lexemefound("constante");
+{valor}           lexemefound("valor");
 
 	/* conta linhas */
 \n linha++;
@@ -96,10 +110,10 @@ word			{letter}+
 %%
 
 /*** seção de código C ***/
-void lexemefound()
+void lexemefound(char *tipo)
 { 
-	printf("%4d lexema: %s \tna linha %d\n", qtdLexema + 1, yytext, linha);
-        fprintf(saida, "%4d lexema: %s \tna linha %d\n", qtdLexema + 1, yytext, linha);
+	printf("%4d lexema %s: %s \tna linha %d\n", qtdLexema + 1, tipo, yytext, linha);
+        fprintf(saida, "%4d lexema %s: %s \tna linha %d\n", qtdLexema + 1, tipo, yytext, linha);
         qtdLexema++;
 }
 void error()
@@ -112,16 +126,14 @@ void error()
 int main(int argc, char *argv[]){
     /* executa o analisador léxico. */
 	saida = fopen("saida.txt", "w");
-	if(argc == 3){
-		if(atoi(argv[1]) == 1){
-			yyin = fopen(argv[2], "r");
-			if(yyin == NULL){
-				printf("\tArquivo não encontrado!\n");
-				return 0;
-			}	
-			yylex();
-			fclose(yyin);
-		}
+	if(argc == 2){		
+		yyin = fopen(argv[1], "r");
+		if(yyin == NULL){
+			printf("\tArquivo não encontrado!\n");
+			return 0;
+		}	
+		yylex();
+		fclose(yyin);		
 	}else{
 		yylex();
 	}

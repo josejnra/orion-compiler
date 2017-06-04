@@ -47,7 +47,7 @@ void menu(){
 void lerArquivo(){
     printf("\n\t* * * * * * *ENTRADA POR ARQUIVO* * * * * * *\n");
     char nomeArq[100];
-    char programaLex[] = "./a.out 1 ";
+    char programaLex[] = "./a.out ";
     printf("\tNome do arquivo de entrada: ");
     gets(&nomeArq);
     strcat(programaLex, nomeArq);

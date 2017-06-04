@@ -11,3 +11,9 @@
 	<string.h>
 	<unistd.h>
 
+1496537255 source:/home/jose/Documents/Orion-Compiler/analisadorLexico/main.c
+	<stdio.h>
+	<sys/types.h>
+	<string.h>
+	<unistd.h>
+

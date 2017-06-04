@@ -1,7 +1,8 @@
 program 
+	/* Aqui vai um comentário*/ /* contendo qualquer coisaewq*/
 	integer : weight, group, charge, distance;
 begin
-	distance := 2300;
+	distance := -2300; 12.34 -1.34 436.342
 	read weight;
 	if weight > 60 then group :=5
 				   else group := (weight + 14)/15
