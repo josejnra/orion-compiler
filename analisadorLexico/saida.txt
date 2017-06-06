@@ -1,0 +1,64 @@
+   1 lexema palavra chave: program 	na linha 1
+   2 lexema comentário: /* Aqui vai um comentário*/ 	na linha 2
+   3 lexema comentário: /* contendo qualquer coisaewq*/ 	na linha 2
+   4 lexema palavra chave: integer 	na linha 3
+   5 lexema caractere especial: : 	na linha 3
+   6 lexema identificador: weight 	na linha 3
+   7 lexema caractere especial: , 	na linha 3
+   8 lexema identificador: group 	na linha 3
+   9 lexema caractere especial: , 	na linha 3
+  10 lexema identificador: charge 	na linha 3
+  11 lexema caractere especial: , 	na linha 3
+  12 lexema identificador: distance 	na linha 3
+  13 lexema caractere especial: ; 	na linha 3
+  14 lexema palavra chave: char 	na linha 4
+  15 lexema caractere especial: : 	na linha 4
+  16 lexema identificador: cintia 	na linha 4
+  17 lexema caractere especial: ; 	na linha 4
+  18 lexema palavra chave: begin 	na linha 5
+  19 lexema identificador: distance 	na linha 6
+  20 lexema atribuição: := 	na linha 6
+  21 lexema constante: -2300 	na linha 6
+  22 lexema caractere especial: ; 	na linha 6
+  23 lexema valor: 12.34 	na linha 6
+  24 lexema valor: -1.34 	na linha 6
+  25 lexema valor: 436.342 	na linha 6
+  26 lexema palavra chave: read 	na linha 7
+  27 lexema identificador: weight 	na linha 7
+  28 lexema caractere especial: ; 	na linha 7
+  29 lexema palavra chave: if 	na linha 8
+  30 lexema identificador: weight 	na linha 8
+  31 lexema expressão: > 	na linha 8
+  32 lexema constante: 60 	na linha 8
+  33 lexema palavra chave: then 	na linha 8
+  34 lexema identificador: group 	na linha 8
+  35 lexema atribuição: := 	na linha 8
+  36 lexema constante: 5 	na linha 8
+  37 lexema palavra chave: else 	na linha 9
+  38 lexema identificador: group 	na linha 9
+  39 lexema atribuição: := 	na linha 9
+  40 lexema caractere especial: ( 	na linha 9
+  41 lexema identificador: weight 	na linha 9
+  42 lexema expressão: + 	na linha 9
+  43 lexema constante: 14 	na linha 9
+  44 lexema caractere especial: ) 	na linha 9
+  45 lexema expressão: / 	na linha 9
+  46 lexema constante: 15 	na linha 9
+  47 lexema palavra chave: endif 	na linha 10
+  48 lexema caractere especial: ; 	na linha 10
+  49 lexema identificador: charge 	na linha 11
+  50 lexema atribuição: := 	na linha 11
+  51 lexema constante: 40 	na linha 11
+  52 lexema expressão: + 	na linha 11
+  53 lexema constante: 3 	na linha 11
+  54 lexema expressão: * 	na linha 11
+  55 lexema caractere especial: ( 	na linha 11
+  56 lexema identificador: distance 	na linha 11
+  57 lexema expressão: / 	na linha 11
+  58 lexema constante: 1000 	na linha 11
+  59 lexema caractere especial: ) 	na linha 11
+  60 lexema palavra chave: write 	na linha 12
+  61 lexema identificador: charge 	na linha 12
+  62 lexema palavra chave: end 	na linha 13
+	Numero total de lexemas reconhecidos = 62
+	Número total de erros = 0

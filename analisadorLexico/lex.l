@@ -35,30 +35,30 @@ sufixoidentificador   {letter}|{digit}
 
 	/*Seção 2.1.1 - Identificadores (palavras chave)*/
 "begin"							lexemefound("palavra chave");
-"boolean "						lexemefound("palavra chave");
-"char "							lexemefound("palavra chave");
-"do "							lexemefound("palavra chave");
-"else "							lexemefound("palavra chave");
+"boolean"						lexemefound("palavra chave");
+"char"							lexemefound("palavra chave");
+"do"							lexemefound("palavra chave");
+"else"							lexemefound("palavra chave");
 "end"							lexemefound("palavra chave");
-"false "						lexemefound("palavra chave");
+"false"						lexemefound("palavra chave");
 "endif"							lexemefound("palavra chave");
 "endwhile"						lexemefound("palavra chave");
 "exit"							lexemefound("palavra chave");
-"if "							lexemefound("palavra chave");
-"integer "						lexemefound("palavra chave");
-"procedure "					lexemefound("palavra chave");
+"if"							lexemefound("palavra chave");
+"integer"						lexemefound("palavra chave");
+"procedure"					lexemefound("palavra chave");
 "program"                      	lexemefound("palavra chave");
 "reference"						lexemefound("palavra chave");
-"repeat "						lexemefound("palavra chave");
-"read "							lexemefound("palavra chave");
-"return "						lexemefound("palavra chave");
-"then "							lexemefound("palavra chave");
-"true "							lexemefound("palavra chave");
-"type "							lexemefound("palavra chave");
-"until "						lexemefound("palavra chave");
+"repeat"						lexemefound("palavra chave");
+"read"							lexemefound("palavra chave");
+"return"						lexemefound("palavra chave");
+"then"							lexemefound("palavra chave");
+"true"							lexemefound("palavra chave");
+"type"							lexemefound("palavra chave");
+"until"						lexemefound("palavra chave");
 "value"							lexemefound("palavra chave");
 "write"							lexemefound("palavra chave");
-"while "						lexemefound("palavra chave");
+"while"						lexemefound("palavra chave");
 
 	/*Seção 2.1.8 - Expressões */
 [|]							lexemefound("expressão");

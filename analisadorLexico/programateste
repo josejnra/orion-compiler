@@ -1,6 +1,7 @@
 program 
 	/* Aqui vai um comentário*/ /* contendo qualquer coisaewq*/
 	integer : weight, group, charge, distance;
+	char: cintia;
 begin
 	distance := -2300; 12.34 -1.34 436.342
 	read weight;
