@@ -61,20 +61,20 @@ sufixoidentificador   {letter}|{digit}
 "while"						lexemefound("palavra chave");
 
 	/*Seção 2.1.8 - Expressões */
-[|]							lexemefound("expressão");
-&							lexemefound("expressão");
-[<]							lexemefound("expressão");
-[>]							lexemefound("expressão");
-[=]							lexemefound("expressão");
-[<][=]						lexemefound("expressão");
-[>][=]						lexemefound("expressão");
-"not"[=]					lexemefound("expressão");
-"not"						lexemefound("expressão");
-[+]							lexemefound("expressão");
-[-]							lexemefound("expressão");
-[*]							lexemefound("expressão");
-[/]							lexemefound("expressão");
-[*]{2}						lexemefound("expressão");
+[|]							lexemefound("operador");
+&							lexemefound("operador");
+[<]							lexemefound("operador");
+[>]							lexemefound("operador");
+[=]							lexemefound("operador");
+[<][=]						lexemefound("operador");
+[>][=]						lexemefound("operador");
+"not"[=]					lexemefound("operador");
+"not"						lexemefound("operador");
+[+]							lexemefound("operador");
+[-]							lexemefound("operador");
+[*]							lexemefound("operador");
+[/]							lexemefound("operador");
+[*]{2}						lexemefound("operador");
 
 	/*Seção 2.1.12 - Atribuição */
 [:][=]						lexemefound("atribuição");
@@ -83,12 +83,12 @@ sufixoidentificador   {letter}|{digit}
 [:]							lexemefound("caractere especial");
 [,]							lexemefound("caractere especial");
 [;]							lexemefound("caractere especial");
-[']							lexemefound("caractere especial");
+ /* [']							lexemefound("caractere especial"); */
 [(]							lexemefound("caractere especial");
 [)]							lexemefound("caractere especial");
 
 	/* 2.1.3 Comentários */
-[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]       lexemefound("comentário");
+[/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]       {} /* Comentário não é para ser impresso como lexema */
 [/][*]                                    { printf("\tErro na linha: %d \tComentário não finalizado: %s \n", linha, yytext);
 											fprintf(saida, "\tErro na linha: %d \tComentário não finalizado: %s \n", linha, yytext);
 											qtdErros++;   }
@@ -99,7 +99,7 @@ sufixoidentificador   {letter}|{digit}
 
     /* 2.1.2 Constantes */
 {constante}       lexemefound("constante");
-{valor}           lexemefound("valor");
+ /* {valor}           lexemefound("valor"); */
 
 	/* conta linhas */
 \n linha++;
@@ -118,8 +118,8 @@ void lexemefound(char *tipo)
 }
 void error()
 {
-	printf("\tErro na linha: %d \tcaractere desconhecido: %s \n", linha, yytext);
-	fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido: %s \n", linha, yytext);
+	printf("\tErro na linha: %d \tcaractere desconhecido ou padrão não encontrado: %s \n", linha, yytext);
+	fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido ou padrão não encontrado: %s \n", linha, yytext);
 	qtdErros++;     
 }
 

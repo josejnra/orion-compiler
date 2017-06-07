@@ -1,10 +1,11 @@
 program 
-	/* Aqui vai um comentário*/ /* contendo qualquer coisaewq*/
+	/* Aqui vai um comentário*/ /* contendo qualquer coisa*/
 	integer : weight, group, charge, distance;
 	char: cintia;
 begin
 	distance := -2300; 12.34 -1.34 436.342
 	read weight;
+	á dfsaàsd{]}
 	if weight > 60 then group :=5
 				   else group := (weight + 14)/15
 	endif;
