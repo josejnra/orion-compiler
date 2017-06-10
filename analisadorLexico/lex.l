@@ -21,13 +21,13 @@ extern void lexemefound();
 delim   		[ \t]
 ws      		{delim}+
 letter			[A-Za-z]
-constante       -?[0-9]+
-valor           -?(([0-9]+)|([0-9]*\.[0-9]+))
+constante       	-?[0-9]+
+valor           	-?(([0-9]+)|([0-9]*\.[0-9]+))
 digit			[0-9]
 number			{digit}+
 positivo		\+?{number}
 word			{letter}+
-sufixoidentificador   {letter}|{digit}
+sufixoidentificador   	{letter}|{digit}
 
 %%
 	/*** seção de regras ***/
@@ -40,14 +40,14 @@ sufixoidentificador   {letter}|{digit}
 "do"							lexemefound("palavra chave");
 "else"							lexemefound("palavra chave");
 "end"							lexemefound("palavra chave");
-"false"						lexemefound("palavra chave");
+"false"							lexemefound("palavra chave");
 "endif"							lexemefound("palavra chave");
 "endwhile"						lexemefound("palavra chave");
 "exit"							lexemefound("palavra chave");
 "if"							lexemefound("palavra chave");
 "integer"						lexemefound("palavra chave");
-"procedure"					lexemefound("palavra chave");
-"program"                      	lexemefound("palavra chave");
+"procedure"						lexemefound("palavra chave");
+"program"                      				lexemefound("palavra chave");
 "reference"						lexemefound("palavra chave");
 "repeat"						lexemefound("palavra chave");
 "read"							lexemefound("palavra chave");
@@ -55,10 +55,10 @@ sufixoidentificador   {letter}|{digit}
 "then"							lexemefound("palavra chave");
 "true"							lexemefound("palavra chave");
 "type"							lexemefound("palavra chave");
-"until"						lexemefound("palavra chave");
+"until"							lexemefound("palavra chave");
 "value"							lexemefound("palavra chave");
 "write"							lexemefound("palavra chave");
-"while"						lexemefound("palavra chave");
+"while"							lexemefound("palavra chave");
 
 	/*Seção 2.1.8 - Expressões */
 [|]							lexemefound("operador");
@@ -66,18 +66,18 @@ sufixoidentificador   {letter}|{digit}
 [<]							lexemefound("operador");
 [>]							lexemefound("operador");
 [=]							lexemefound("operador");
-[<][=]						lexemefound("operador");
-[>][=]						lexemefound("operador");
-"not"[=]					lexemefound("operador");
-"not"						lexemefound("operador");
+[<][=]							lexemefound("operador");
+[>][=]							lexemefound("operador");
+"not"[=]						lexemefound("operador");
+"not"							lexemefound("operador");
 [+]							lexemefound("operador");
 [-]							lexemefound("operador");
 [*]							lexemefound("operador");
 [/]							lexemefound("operador");
-[*]{2}						lexemefound("operador");
+[*]{2}							lexemefound("operador");
 
 	/*Seção 2.1.12 - Atribuição */
-[:][=]						lexemefound("atribuição");
+[:][=]							lexemefound("atribuicao");
 
 	/*Outros caracteres...*/
 [:]							lexemefound("caractere especial");
@@ -89,16 +89,16 @@ sufixoidentificador   {letter}|{digit}
 
 	/* 2.1.3 Comentários */
 [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]       {} /* Comentário não é para ser impresso como lexema */
-[/][*]                                    { printf("\tErro na linha: %d \tComentário não finalizado: %s \n", linha, yytext);
-											fprintf(saida, "\tErro na linha: %d \tComentário não finalizado: %s \n", linha, yytext);
+[/][*]                                    { printf("\tErro na linha: %d \tComentario não finalizado: %s \n", linha, yytext);
+											fprintf(saida, "\tErro na linha: %d \tComentario não finalizado: %s \n", linha, yytext);
 											qtdErros++;   }
 
 	/*Seção 2.1.1 - Identificadores de tamanho 32 no máximo*/
-{letter}{sufixoidentificador}{0,31}          lexemefound("identificador");
+{letter}{sufixoidentificador}{0,31}          		lexemefound("identificador");
 
 
     /* 2.1.2 Constantes */
-{constante}       lexemefound("constante");
+{constante}       					lexemefound("constante");
  /* {valor}           lexemefound("valor"); */
 
 	/* conta linhas */
@@ -106,7 +106,7 @@ sufixoidentificador   {letter}|{digit}
 	
 
 	/* erro de sintaxe */
-.	;		error(); 		/* Ao encontrar um caractere, e este não se encaixar em nenhuma entrada, será identificado como um erro */
+.		error(); 		/* Ao encontrar um caractere, e este não se encaixar em nenhuma entrada, será identificado como um erro */
 %%
 
 /*** seção de código C ***/
@@ -118,8 +118,8 @@ void lexemefound(char *tipo)
 }
 void error()
 {
-	printf("\tErro na linha: %d \tcaractere desconhecido ou padrão não encontrado: %s \n", linha, yytext);
-	fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido ou padrão não encontrado: %s \n", linha, yytext);
+	printf("\tErro na linha: %d \tcaractere desconhecido ou padrao nao encontrado: %s \n", linha, yytext);
+	fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido ou padrao nao encontrado: %s \n", linha, yytext);
 	qtdErros++;     
 }
 
@@ -129,7 +129,7 @@ int main(int argc, char *argv[]){
 	if(argc == 2){		
 		yyin = fopen(argv[1], "r");
 		if(yyin == NULL){
-			printf("\tArquivo não encontrado!\n");
+			printf("\tArquivo nao encontrado!\n");
 			return 0;
 		}	
 		yylex();
@@ -138,10 +138,10 @@ int main(int argc, char *argv[]){
 		yylex();
 	}
 
-	printf("\tNúmero total de lexemas reconhecidos = %d\n", qtdLexema);
+	printf("\tNumero total de lexemas reconhecidos = %d\n", qtdLexema);
 	fprintf(saida, "\tNumero total de lexemas reconhecidos = %d\n", qtdLexema);
-	printf("\tNúmero total de erros = %d\n", qtdErros);
-	fprintf(saida, "\tNúmero total de erros = %d\n", qtdErros);
+	printf("\tNumero total de erros = %d\n", qtdErros);
+	fprintf(saida, "\tNumero total de erros = %d\n", qtdErros);
 
 	fclose(saida);
     return 0;

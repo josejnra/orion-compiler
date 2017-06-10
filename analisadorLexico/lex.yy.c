@@ -1081,7 +1081,7 @@ lexemefound("operador");
 case 41:
 YY_RULE_SETUP
 #line 80 "lex.l"
-lexemefound("atribuição");
+lexemefound("atribuicao");
 	YY_BREAK
 /*Outros caracteres...*/
 case 42:
@@ -1120,8 +1120,8 @@ YY_RULE_SETUP
 case 48:
 YY_RULE_SETUP
 #line 92 "lex.l"
-{ printf("\tErro na linha: %d \tComentário não finalizado: %s \n", linha, yytext);
-											fprintf(saida, "\tErro na linha: %d \tComentário não finalizado: %s \n", linha, yytext);
+{ printf("\tErro na linha: %d \tComentario não finalizado: %s \n", linha, yytext);
+											fprintf(saida, "\tErro na linha: %d \tComentario não finalizado: %s \n", linha, yytext);
 											qtdErros++;   }
 	YY_BREAK
 /*Seção 2.1.1 - Identificadores de tamanho 32 no máximo*/
@@ -1148,7 +1148,7 @@ linha++;
 case 52:
 YY_RULE_SETUP
 #line 109 "lex.l"
-;		error(); 		/* Ao encontrar um caractere, e este não se encaixar em nenhuma entrada, será identificado como um erro */
+error(); 		/* Ao encontrar um caractere, e este não se encaixar em nenhuma entrada, será identificado como um erro */
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
@@ -2169,8 +2169,8 @@ void lexemefound(char *tipo)
 }
 void error()
 {
-	printf("\tErro na linha: %d \tcaractere desconhecido ou padrão não encontrado: %s \n", linha, yytext);
-	fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido ou padrão não encontrado: %s \n", linha, yytext);
+	printf("\tErro na linha: %d \tcaractere desconhecido ou padrao nao encontrado: %s \n", linha, yytext);
+	fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido ou padrao nao encontrado: %s \n", linha, yytext);
 	qtdErros++;     
 }
 
@@ -2180,7 +2180,7 @@ int main(int argc, char *argv[]){
 	if(argc == 2){		
 		yyin = fopen(argv[1], "r");
 		if(yyin == NULL){
-			printf("\tArquivo não encontrado!\n");
+			printf("\tArquivo nao encontrado!\n");
 			return 0;
 		}	
 		yylex();
@@ -2189,10 +2189,10 @@ int main(int argc, char *argv[]){
 		yylex();
 	}
 
-	printf("\tNúmero total de lexemas reconhecidos = %d\n", qtdLexema);
+	printf("\tNumero total de lexemas reconhecidos = %d\n", qtdLexema);
 	fprintf(saida, "\tNumero total de lexemas reconhecidos = %d\n", qtdLexema);
-	printf("\tNúmero total de erros = %d\n", qtdErros);
-	fprintf(saida, "\tNúmero total de erros = %d\n", qtdErros);
+	printf("\tNumero total de erros = %d\n", qtdErros);
+	fprintf(saida, "\tNumero total de erros = %d\n", qtdErros);
 
 	fclose(saida);
     return 0;

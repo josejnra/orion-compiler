@@ -15,41 +15,41 @@
   15 lexema caractere especial: ; 	na linha 4
   16 lexema palavra chave: begin 	na linha 5
   17 lexema identificador: distance 	na linha 6
-  18 lexema atribuição: := 	na linha 6
+  18 lexema atribuicao: := 	na linha 6
   19 lexema constante: -2300 	na linha 6
   20 lexema caractere especial: ; 	na linha 6
   21 lexema constante: 12 	na linha 6
-	Erro na linha: 6 	caractere desconhecido ou padrão não encontrado: . 
+	Erro na linha: 6 	caractere desconhecido ou padrao nao encontrado: . 
   22 lexema constante: 34 	na linha 6
   23 lexema constante: -1 	na linha 6
-	Erro na linha: 6 	caractere desconhecido ou padrão não encontrado: . 
+	Erro na linha: 6 	caractere desconhecido ou padrao nao encontrado: . 
   24 lexema constante: 34 	na linha 6
   25 lexema constante: 436 	na linha 6
-	Erro na linha: 6 	caractere desconhecido ou padrão não encontrado: . 
+	Erro na linha: 6 	caractere desconhecido ou padrao nao encontrado: . 
   26 lexema constante: 342 	na linha 6
   27 lexema palavra chave: read 	na linha 7
   28 lexema identificador: weight 	na linha 7
   29 lexema caractere especial: ; 	na linha 7
-	Erro na linha: 8 	caractere desconhecido ou padrão não encontrado: � 
-	Erro na linha: 8 	caractere desconhecido ou padrão não encontrado: � 
+	Erro na linha: 8 	caractere desconhecido ou padrao nao encontrado: � 
+	Erro na linha: 8 	caractere desconhecido ou padrao nao encontrado: � 
   30 lexema identificador: dfsa 	na linha 8
-	Erro na linha: 8 	caractere desconhecido ou padrão não encontrado: � 
-	Erro na linha: 8 	caractere desconhecido ou padrão não encontrado: � 
+	Erro na linha: 8 	caractere desconhecido ou padrao nao encontrado: � 
+	Erro na linha: 8 	caractere desconhecido ou padrao nao encontrado: � 
   31 lexema identificador: sd 	na linha 8
-	Erro na linha: 8 	caractere desconhecido ou padrão não encontrado: { 
-	Erro na linha: 8 	caractere desconhecido ou padrão não encontrado: ] 
-	Erro na linha: 8 	caractere desconhecido ou padrão não encontrado: } 
+	Erro na linha: 8 	caractere desconhecido ou padrao nao encontrado: { 
+	Erro na linha: 8 	caractere desconhecido ou padrao nao encontrado: ] 
+	Erro na linha: 8 	caractere desconhecido ou padrao nao encontrado: } 
   32 lexema palavra chave: if 	na linha 9
   33 lexema identificador: weight 	na linha 9
   34 lexema operador: > 	na linha 9
   35 lexema constante: 60 	na linha 9
   36 lexema palavra chave: then 	na linha 9
   37 lexema identificador: group 	na linha 9
-  38 lexema atribuição: := 	na linha 9
+  38 lexema atribuicao: := 	na linha 9
   39 lexema constante: 5 	na linha 9
   40 lexema palavra chave: else 	na linha 10
   41 lexema identificador: group 	na linha 10
-  42 lexema atribuição: := 	na linha 10
+  42 lexema atribuicao: := 	na linha 10
   43 lexema caractere especial: ( 	na linha 10
   44 lexema identificador: weight 	na linha 10
   45 lexema operador: + 	na linha 10
@@ -60,7 +60,7 @@
   50 lexema palavra chave: endif 	na linha 11
   51 lexema caractere especial: ; 	na linha 11
   52 lexema identificador: charge 	na linha 12
-  53 lexema atribuição: := 	na linha 12
+  53 lexema atribuicao: := 	na linha 12
   54 lexema constante: 40 	na linha 12
   55 lexema operador: + 	na linha 12
   56 lexema constante: 3 	na linha 12
@@ -74,4 +74,4 @@
   64 lexema identificador: charge 	na linha 13
   65 lexema palavra chave: end 	na linha 14
 	Numero total de lexemas reconhecidos = 65
-	Número total de erros = 10
+	Numero total de erros = 10
