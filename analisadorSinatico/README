@@ -1,0 +1,3 @@
+adriele@adriele-Z450UA:~$ flex lex.l 
+adriele@adriele-Z450UA:~$ yacc -d translate.y 
+adriele@adriele-Z450UA:~$ gcc lex.yy.c y.tab.c -o saida.exe
