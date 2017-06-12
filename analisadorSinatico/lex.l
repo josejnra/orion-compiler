@@ -124,27 +124,3 @@ void yyerror(const char *err)
 	fprintf(saida, "\tErro na linha: %d \tcaractere desconhecido ou padrao nao encontrado: %s \n", linha, yytext);
 	qtdErros++;     
 }
-
-/*int main(int argc, char *argv[]){
-     /*executa o analisador léxico. 
-	saida = fopen("saida.txt", "w");
-	if(argc == 2){		
-		yyin = fopen(argv[1], "r");
-		if(yyin == NULL){
-			printf("\tArquivo nao encontrado!\n");
-			return 0;
-		}	
-		yylex();
-		fclose(yyin);		
-	}else{
-		yylex();
-	}
-
-	printf("\tNumero total de lexemas reconhecidos = %d\n", qtdLexema);
-	fprintf(saida, "\tNumero total de lexemas reconhecidos = %d\n", qtdLexema);
-	printf("\tNumero total de erros = %d\n", qtdErros);
-	fprintf(saida, "\tNumero total de erros = %d\n", qtdErros);
-
-	fclose(saida);
-    return 0;
-}*/
