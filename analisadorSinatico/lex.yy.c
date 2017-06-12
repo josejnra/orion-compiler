@@ -2176,8 +2176,8 @@ void yyerror(const char *err)
 	qtdErros++;     
 }
 
-int main(int argc, char *argv[]){
-    /* executa o analisador léxico. */
+/*int main(int argc, char *argv[]){
+     /*executa o analisador léxico. 
 	saida = fopen("saida.txt", "w");
 	if(argc == 2){		
 		yyin = fopen(argv[1], "r");
@@ -2198,6 +2198,5 @@ int main(int argc, char *argv[]){
 
 	fclose(saida);
     return 0;
-}
-
+}*/
 

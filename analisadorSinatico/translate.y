@@ -273,10 +273,22 @@ identificador : IDENTIFIER
 			  ;
 
 %%
-
 int main(int argc, char *argv[]){
-	yyparse();
+    /* executa o analisador léxico. */
 	saida = fopen("saida.txt", "w");
+	if(argc == 2){		
+		yyin = fopen(argv[1], "r");
+		if(yyin == NULL){
+			printf("\tArquivo nao encontrado!\n");
+			return 0;
+		}	
+		yylex();
+		yyparse();
+		fclose(yyin);		
+	}else{
+		yylex();
+		yyparse();
+	}
 
 	printf("\tNumero total de lexemas reconhecidos = %d\n", qtdLexema);
 	fprintf(saida, "\tNumero total de lexemas reconhecidos = %d\n", qtdLexema);
