@@ -3,72 +3,78 @@
 #include "y.tab.h"
 int line_num = 1;
 void lexemefoundSintatico();
+void gravarSaida();
+
+FILE *saida;
+
 %}
 
 %%
 
-while                           {lexemefound("palavra chave"); yylval = strdup(yytext); return WHILE; }
-if                              {lexemefound("palavra chave"); yylval = strdup(yytext); return IF; }
-else                            {lexemefound("palavra chave"); yylval = strdup(yytext); return ELSE; }
-"begin"							{lexemefound("palavra chave"); yylval = strdup(yytext); return BEG; }
-"boolean"						{lexemefound("palavra chave"); yylval = strdup(yytext); return BOOLEAN;}
-"char"							{lexemefound("palavra chave"); yylval = strdup(yytext); return CHAR;}
-"do"							{lexemefound("palavra chave"); yylval = strdup(yytext); return DO;}
-"end"							{lexemefound("palavra chave"); yylval = strdup(yytext); return END;}
-"false"							{lexemefound("palavra chave"); yylval = strdup(yytext); return FALSE;}
-"endif"							{lexemefound("palavra chave"); yylval = strdup(yytext); return ENDIF;}
-"endwhile"						{lexemefound("palavra chave"); yylval = strdup(yytext); return ENDWHILE;}
-"exit"							{lexemefound("palavra chave"); yylval = strdup(yytext); return EXIT;}
-"integer"						{lexemefound("palavra chave"); yylval = strdup(yytext); return INTEGER;}
-"procedure"						{lexemefound("palavra chave"); yylval = strdup(yytext); return PROCEDURE;}
-"program"                      	{lexemefound("palavra chave"); yylval = strdup(yytext); return PROGRAM;}
-"reference"						{lexemefound("palavra chave"); yylval = strdup(yytext); return REFERENCE;}
-"repeat"						{lexemefound("palavra chave"); yylval = strdup(yytext); return REPEAT;}
-"read"							{lexemefound("palavra chave"); yylval = strdup(yytext); return READ;}
-"return"						{lexemefound("palavra chave"); yylval = strdup(yytext); return RETURN;}
-"then"							{lexemefound("palavra chave"); yylval = strdup(yytext); return THEN;}
-"true"							{lexemefound("palavra chave"); yylval = strdup(yytext); return TRUE;}
-"type"							{lexemefound("palavra chave"); yylval = strdup(yytext); return TYPE;}
-"until"							{lexemefound("palavra chave"); yylval = strdup(yytext); return UNTIL;}
-"value"							{lexemefound("palavra chave"); yylval = strdup(yytext); return VALUE;}
-"write"							{lexemefound("palavra chave"); yylval = strdup(yytext); return WRITE;}
+while                           {gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return WHILE; }
+if                              {gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return IF; }
+else                            {gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return ELSE; }
+"begin"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return BEG; }
+"boolean"						{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return BOOLEAN;}
+"char"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return CHAR;}
+"do"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return DO;}
+"end"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return END;}
+"false"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return FALSE;}
+"endif"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return ENDIF;}
+"endwhile"						{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return ENDWHILE;}
+"exit"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return EXIT;}
+"integer"						{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return INTEGER;}
+"procedure"						{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return PROCEDURE;}
+"program"                      	{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return PROGRAM;}
+"reference"						{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return REFERENCE;}
+"repeat"						{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return REPEAT;}
+"read"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return READ;}
+"return"						{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return RETURN;}
+"then"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return THEN;}
+"true"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return TRUE;}
+"type"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return TYPE;}
+"until"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return UNTIL;}
+"value"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return VALUE;}
+"write"							{gravarSaida(); lexemefound("palavra chave"); yylval = strdup(yytext); return WRITE;}
 
 
-[|]							{lexemefound("operador"); yylval = strdup(yytext); return OR;}
-&							{lexemefound("operador"); yylval = strdup(yytext); return AND;}
-[<]							{lexemefound("operador"); yylval = strdup(yytext); return LT;}
-[>]							{lexemefound("operador"); yylval = strdup(yytext); return GT;}
-[=]							{lexemefound("operador"); yylval = strdup(yytext); return EQ;}
-[<][=]						{lexemefound("operador"); yylval = strdup(yytext); return LE;}
-[>][=]						{lexemefound("operador"); yylval = strdup(yytext); return GE;}
-"not"[=]					{lexemefound("operador"); yylval = strdup(yytext); return NE;}
-"not"						{lexemefound("operador"); yylval = strdup(yytext); return NOT;}
-[+]						    {lexemefound("operador"); yylval = strdup(yytext); return PLUS;}
-[-]							{lexemefound("operador"); yylval = strdup(yytext); return MINUS;}
-[*]							{lexemefound("operador"); yylval = strdup(yytext); return MULT;}
-[/]							{lexemefound("operador"); yylval = strdup(yytext); return DIV;}
-[*]{2}						{lexemefound("operador"); yylval = strdup(yytext); return EXP;}
+[|]							{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return OR;}
+&							{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return AND;}
+[<]							{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return LT;}
+[>]							{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return GT;}
+[=]							{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return EQ;}
+[<][=]						{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return LE;}
+[>][=]						{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return GE;}
+"not"[=]					{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return NE;}
+"not"						{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return NOT;}
+[+]						    {gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return PLUS;}
+[-]							{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return MINUS;}
+[*]							{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return MULT;}
+[/]							{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return DIV;}
+[*]{2}						{gravarSaida(); lexemefound("operador"); yylval = strdup(yytext); return EXP;}
 
 
-[:][=]							{lexemefound("atribuicao"); yylval = strdup(yytext); return ATTRIB;}
+[:][=]							{gravarSaida(); lexemefound("atribuicao"); yylval = strdup(yytext); return ATTRIB;}
 
-[:]							{lexemefound("caractere especial"); yylval = strdup(yytext); return DOUBLEDOTS;}
-[,]							{lexemefound("caractere especial"); yylval = strdup(yytext); return COLON;}
-[;]							{lexemefound("caractere especial"); yylval = strdup(yytext); return SEMICOLON;}
-[(]							{lexemefound("caractere especial"); yylval = strdup(yytext); return OPENPAR;}
-[)]							{lexemefound("caractere especial"); yylval = strdup(yytext); return CLOSEPAR;}
+[:]							{gravarSaida(); lexemefound("caractere especial"); yylval = strdup(yytext); return DOUBLEDOTS;}
+[,]							{gravarSaida(); lexemefound("caractere especial"); yylval = strdup(yytext); return COLON;}
+[;]							{gravarSaida(); lexemefound("caractere especial"); yylval = strdup(yytext); return SEMICOLON;}
+[(]							{gravarSaida(); lexemefound("caractere especial"); yylval = strdup(yytext); return OPENPAR;}
+[)]							{gravarSaida(); lexemefound("caractere especial"); yylval = strdup(yytext); return CLOSEPAR;}
 
 [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]       		{} /* Comentário não é para ser impresso como lexema */
-[/][*]                                    		{printf("\tErro lexico, comentario nao finalizado\n");}
+[/][*]                                    		{printf("\tErro lexico, comentario nao finalizado\n"); exit(1);}
 
 
-[a-zA-Z][a-zA-Z0-9_]* {lexemefound("identificador"); yylval = strdup(yytext); return IDENTIFIER;}
+[a-zA-Z][a-zA-Z0-9_]* {gravarSaida(); lexemefound("identificador"); yylval = strdup(yytext); return IDENTIFIER;}
 
-[0-9]+ {lexemefound("valor"); yylval =  strdup(yytext); return NUM; }
+[0-9]+ {gravarSaida(); lexemefound("valor"); yylval =  strdup(yytext); return NUM; }
 
-[ \t\r]+ { }
+[ ] {gravarSaida(); printf(" ");}
+[\t] {gravarSaida(); printf("\t");}
+[\r] {gravarSaida(); printf("\r");}
 
-\n line_num++;
+\n {fprintf(saida, "\n%d ", line_num + 1); printf("\n%d ", line_num + 1); line_num++;}
 
 .  {printf("Erro lexico, padrao nao identificado na linha: %d\n", line_num); exit(1);}
 
@@ -76,9 +82,15 @@ else                            {lexemefound("palavra chave"); yylval = strdup(y
 
 /*** seção de código C ***/
 void lexemefound(char *tipo){
-	printf("lexema %s: %s \tna linha %d\n", tipo, yytext, line_num);
+	//printf("lexema %s: %s \tna linha %d\n", tipo, yytext, line_num);
+	printf("%s", yytext);
 }
 
 void lexemefoundSintatico(){
-	printf("%s\n", yytext);
+	printf("%s *****\n", yytext);
 }
+
+void gravarSaida(){
+	fprintf(saida, "%s", yytext);
+}
+

@@ -68,7 +68,7 @@ int linha(); // imprime o número da linha ao ocorrer um error sintático
 
 
 %%
-CODE: program { printf("Programa sintaticamente correto\n"); }
+CODE: program { printf("\n***** Programa sintaticamente correto! *****\n"); }
 	;
 
 program : PROGRAM M2 declaracoes M0 bloco
@@ -267,6 +267,7 @@ identificador : IDENTIFIER
 
 extern int line_num;
 extern void lexemefoundSintatico();
+extern FILE *saida;
 
 int main(int argc, char* argv[]){	
 	if(argc != 2){
@@ -275,9 +276,14 @@ int main(int argc, char* argv[]){
 	}
 
 	yyin = fopen(argv[1], "r");
-
-	yyparse();	
 	
+	saida = fopen("saida.txt", "w");
+	fprintf(saida, "%d ", line_num);
+	printf("%d ", line_num);
+
+	yyparse();
+	
+	fclose(saida);
 	return 0;
 }
 
@@ -287,6 +293,6 @@ int linha(){
 }
 
 int yyerror(char *s) {
-	printf("Erro sintatico entre as linhas %d e %d proximo ao lexema: ", line_num - 1, line_num);
+	printf("\n***** Erro sintatico na linha %d ou %d, verificar na vizinhanca do token: ", line_num - 1, line_num);
 	lexemefoundSintatico();
 }	
