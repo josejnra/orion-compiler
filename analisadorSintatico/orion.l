@@ -1,7 +1,6 @@
 %{
 #define YYSTYPE char*
 #include "y.tab.h"
-char* mycat(char* orig, char* s);
 int line_num = 1;
 void lexemefoundSintatico();
 %}
@@ -13,7 +12,7 @@ if                              {lexemefound("palavra chave"); yylval = strdup(y
 else                            {lexemefound("palavra chave"); yylval = strdup(yytext); return ELSE; }
 "begin"							{lexemefound("palavra chave"); yylval = strdup(yytext); return BEG; }
 "boolean"						{lexemefound("palavra chave"); yylval = strdup(yytext); return BOOLEAN;}
-"char"							{lexemefound("palavra chave"); yylval = strdup(yytext); return CHAR_LITERAL;}
+"char"							{lexemefound("palavra chave"); yylval = strdup(yytext); return CHAR;}
 "do"							{lexemefound("palavra chave"); yylval = strdup(yytext); return DO;}
 "end"							{lexemefound("palavra chave"); yylval = strdup(yytext); return END;}
 "false"							{lexemefound("palavra chave"); yylval = strdup(yytext); return FALSE;}

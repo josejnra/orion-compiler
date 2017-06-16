@@ -16,14 +16,15 @@ int linha(); // imprime o número da linha ao ocorrer um error sintático
 %token NUM IDENTIFIER
 %token BEG
 %token BOOLEAN
-%token CHAR_LITERAL
+%token CONST_CHAR
+%token CHAR
 %token DO
 %token END
 %token FALSE
 %token ENDIF
 %token ENDWHILE
 %token EXIT
-%token<NUM> INTEGER
+%token INTEGER
 %token PROCEDURE
 %token PROGRAM
 %token REFERENCE
@@ -68,43 +69,39 @@ int linha(); // imprime o número da linha ao ocorrer um error sintático
 
 %%
 CODE: program { printf("Programa sintaticamente correto\n"); }
-    | 
 	;
 
 program : PROGRAM M2 declaracoes M0 bloco
         ;
 
-bloco   : BEG lista_de_comandos M0 END //{printf("Bloco Completo\n");}
-	      ;
+bloco   : BEG lista_de_comandos M0 END
+	    ;
 
-declaracoes : declaracoes M0 declaracao SEMICOLON  //{printf("Encontrado um ponto e virgula na linha %d\n", linha());}
-			      | vazio
-			      ;
+declaracoes : declaracoes M0 declaracao SEMICOLON
+			| vazio
+			;
 
-declaracao : decl_de_var //{printf("Encontrado declaracao de variaveis na linha %d\n", linha());}
-		       | def_de_tipo
-		       | decl_de_proc
-		       ;
+declaracao : decl_de_var
+		   | def_de_tipo
+		   | decl_de_proc
+		   ;
 
-decl_de_var : tipo DOUBLEDOTS lista_de_ids //{printf("Encontrado dois pontos na linha %d\n", linha());}
-			      ;
+decl_de_var : tipo DOUBLEDOTS lista_de_ids
+			;
 
-tipo : INTEGER //{printf("Encontrado INTEGER na linha %d\n", linha());}
-	 | BOOLEAN //{printf("Encontrado BOOLEAN na linha %d\n", linha());}
-	 | CHAR_LITERAL //{printf("Encontrado CHAR na linha %d\n", linha());}
-	 | tipo_definido //{printf("Encontrado TIPODEFINIDO na linha %d\n", linha());}
+tipo : INTEGER
+	 | BOOLEAN
+	 | CHAR
+	 | tipo_definido
 	 ;
 
-M0 :
-   /*EMPTY*/
+M0 : vazio
    ;
 
-M1 :
-   /*EMPTY*/
+M1 : vazio
    ;
 
-M2 :
-   /*EMPTY*/
+M2 : vazio
    ;
 
 def_de_tipo : TYPE nome_do_tipo M0 EQ M1 definicao_de_tipo
@@ -116,7 +113,7 @@ nome_do_tipo : identificador
 definicao_de_tipo : OPENPAR limites CLOSEPAR tipo
 				  ;
 
-limites : INTEGER DOUBLEDOTS INTEGER
+limites : inteiro DOUBLEDOTS inteiro
 		;
 
 tipo_definido : identificador
@@ -125,11 +122,10 @@ tipo_definido : identificador
 decl_de_proc : proc_cab pro_corpo
 			 ;
 
-proc_cab : tipo_retornado PROCEDURE M0 nome_do_proc
-		 | espec_de_parametros
+proc_cab : tipo_retornado PROCEDURE M0 nome_do_proc espec_de_parametros
 		 ;
 
-pro_corpo : declaracoes M0 bloco emit_return
+pro_corpo : DOUBLEDOTS declaracoes M0 bloco emit_return
 		  | emit_return
 		  ;
 
@@ -142,7 +138,7 @@ lista_de_parametros : parametro
 
 tipo_retornado : INTEGER
 			   | BOOLEAN
-			   | CHAR_LITERAL
+			   | CHAR
 			   | vazio
 			   ;
 
@@ -156,31 +152,29 @@ modo : VALUE
 nome_do_proc : identificador
 			 ;
 
-lista_de_comandos : comando
-				  | rotulo DOUBLEDOTS 
-				  | lista_de_comandos SEMICOLON M0 comando //{printf("Encontrado um ponto e virgula na linha %d\n", linha());}
+lista_de_comandos : comando				  
+				  | lista_de_comandos SEMICOLON M0 comando
 				  ;
 
 lista_de_ids : identificador
 			 | lista_de_ids COLON identificador
 			 ;
 
-vazio :
-	  /*empty*/
+vazio : /*Epsilon*/
 	  ;
 
 espec_de_parametros : OPENPAR lista_de_parametros CLOSEPAR
 					| vazio
 					;
 
-comando : comando_de_atribuicao //{printf("Encontrado := na linha %d\n", linha());}
-		| comando_while// {printf("Encontrado WHILE na linha %d\n", linha());}
-		| comando_repeat //{printf("Encontrado REPEAT na linha %d\n", linha());}
-		| comando_if //{printf("Encontrado IF na linha %d\n", linha());}
-		| comando_read //{printf("Encontrado READ na linha %d\n", linha());}
-		| comando_write //{printf("Encontrado WRITE na linha %d\n", linha());}
-		| comando_return //{printf("Encontrado RETURN na linha %d\n", linha());}
-		| comando_exit //{printf("Encontrado EXIT na linha %d\n", linha());}
+comando : comando_de_atribuicao
+		| comando_while
+		| comando_repeat
+		| comando_if
+		| comando_read
+		| comando_write
+		| comando_return
+		| comando_exit
 		| chamada_de_procedimento
 		| rotulo DOUBLEDOTS comando
 		;
@@ -194,7 +188,7 @@ comando_while : WHILE M0 expr DO M0 lista_de_comandos ENDWHILE
 comando_repeat : REPEAT M0 lista_de_comandos UNTIL M0 expr
 			   ;
 
-comando_if : IF expr THEN M0 lista_de_comandos ENDIF //{printf("Encontrado THEN na linha %d\n", linha());}
+comando_if : IF expr THEN M0 lista_de_comandos ENDIF
 		   | IF expr THEN M0 lista_de_comandos M1 
 		     ELSE M0 lista_de_comandos ENDIF
 		   ;
@@ -202,7 +196,7 @@ comando_if : IF expr THEN M0 lista_de_comandos ENDIF //{printf("Encontrado THEN 
 comando_read : READ variavel
 			 ;
 
-comando_write : WRITE expr //{printf("Encontrado WRITE na linha %d\n", linha());}
+comando_write : WRITE expr
 			  ;
 
 comando_return :  RETURN expr
@@ -234,18 +228,18 @@ variavel2 : identificador
 
 expr : expr OR M0 expr
 	 | expr AND M0 expr
-	 | NOT expr //{printf("Encontrado NOT na linha %d\n", linha());}
-	 | expr NE expr //{printf("Encontrado NE na linha %d\n", linha());}
-	 | expr GT expr //{printf("Encontrado GT na linha %d\n", linha());}
-     | expr LT expr  //{printf("Encontrado LT na linha %d\n", linha());}	
-     | expr GE expr //{printf("Encontrado GE na linha %d\n", linha());}
-	 | expr LE expr //{printf("Encontrado LE na linha %d\n", linha());}
-	 | expr PLUS expr //{printf("Encontrado PLUS na linha %d\n", linha());}
-	 | expr MINUS expr //{printf("Encontrado MINUS na linha %d\n", linha());}
+	 | NOT expr
+	 | expr NE expr
+	 | expr LT expr 
+     | expr GT expr
+     | expr GE expr
+	 | expr LE expr
+	 | expr PLUS expr
+	 | expr MINUS expr
 	 | expr MULT expr
 	 | expr DIV expr
 	 | expr EXP expr
-	 | '-' expr %prec UMINUS
+	 | MINUS expr %prec UMINUS
 	 | variavel
 	 | constante
 	 | OPENPAR expr CLOSEPAR
@@ -255,18 +249,18 @@ constante : int_ou_char
 		  | booleano
 		  ;
 
-int_ou_char : inteiro //{printf("Encontrado um inteiro na linha %d\n", linha());}
-			| CHAR_LITERAL
+int_ou_char : inteiro
+			| CONST_CHAR
 			;
 
 inteiro : NUM 
 		;
 
-booleano : TRUE {printf("Encontrado TRUE na linha %d\n", linha());}
-		 | FALSE {printf("Encontrado FALSE na linha %d\n", linha());}
+booleano : TRUE
+		 | FALSE
 		 ;
 
-identificador : IDENTIFIER  //{printf("Encontrado IDENTIFICADOR na linha %d\n", linha());}
+identificador : IDENTIFIER
 			  ;
 
 %%
