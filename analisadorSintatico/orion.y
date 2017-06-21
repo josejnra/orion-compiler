@@ -3,12 +3,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#define YYSTYPE char*
+#include "tabela.h"
+
+int yywrap();
+
 extern FILE* yyin; // para leitura do arquivo com código fonte
 extern FILE* yyout; // gravação das operações no analisador sintático
 int yylex();  // chamar o analisador léxico
 int yyerror(char *s); // impressão de erro e o analisador para
-int linha(); // imprime o número da linha ao ocorrer um error sintático
 
 %}
 
@@ -86,7 +88,7 @@ declaracao : decl_de_var
 		   | decl_de_proc
 		   ;
 
-decl_de_var : tipo DOUBLEDOTS lista_de_ids
+decl_de_var : tipo DOUBLEDOTS lista_de_ids 
 			;
 
 tipo : INTEGER
@@ -268,31 +270,43 @@ identificador : IDENTIFIER
 extern int line_num;
 extern void lexemefoundSintatico();
 extern FILE *saida;
+extern simbolo_t tabela_simbolos[TAB_SIZE];
+
 
 int main(int argc, char* argv[]){	
 	if(argc != 2){
 		printf("Maneira correta de se usar o analisador sintatico: ./a.out arquivo_teste\n");
 		exit(1);
 	}
-
+		
 	yyin = fopen(argv[1], "r");
-	
+	if(yyin == NULL){
+		printf("Arquivo nao existe.\n");
+		return 1;
+	}
+
 	saida = fopen("saida.txt", "w");
 	fprintf(saida, "%d ", line_num);
-	printf("%d ", line_num);
+	//printf("%d ", line_num);
+
+
+	iniciaListaNO();
+
 
 	yyparse();
 	
+	printf("\n");
+	Imprime_Tabela();
+
 	fclose(saida);
 	return 0;
-}
-
-
-int linha(){
-	return line_num;
 }
 
 int yyerror(char *s) {
 	printf("\n***** Erro sintatico na linha %d ou %d, verificar na vizinhanca do token: ", line_num - 1, line_num);
 	lexemefoundSintatico();
 }	
+
+int yywrap(){
+	return(1);
+}

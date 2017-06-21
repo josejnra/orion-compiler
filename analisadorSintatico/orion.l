@@ -1,11 +1,19 @@
 %{
 #define YYSTYPE char*
 #include "y.tab.h"
+#include "tabela.h"
+#include <stdlib.h>
+#include <string.h>
+
 int line_num = 1;
 void lexemefoundSintatico();
 void gravarSaida();
+void instalarNaTS();
 
+extern void Instala(char* X, simbolo_t atribut);
 FILE *saida;
+
+extern simbolo_t tabela_simbolos[TAB_SIZE];
 
 %}
 
@@ -66,7 +74,11 @@ else                            {gravarSaida(); lexemefound("palavra chave"); yy
 [/][*]                                    		{printf("\tErro lexico, comentario nao finalizado\n"); exit(1);}
 
 
-[a-zA-Z][a-zA-Z0-9_]* {gravarSaida(); lexemefound("identificador"); yylval = strdup(yytext); return IDENTIFIER;}
+[a-zA-Z][a-zA-Z0-9_]* {	gravarSaida();
+						lexemefound("identificador");
+						instalarNaTS();
+						yylval = strdup(yytext);
+						return IDENTIFIER;}
 
 [0-9]+ {gravarSaida(); lexemefound("valor"); yylval =  strdup(yytext); return NUM; }
 
@@ -74,16 +86,17 @@ else                            {gravarSaida(); lexemefound("palavra chave"); yy
 [\t] {gravarSaida(); printf("\t");}
 [\r] {gravarSaida(); printf("\r");}
 
-\n {fprintf(saida, "\n%d ", line_num + 1); printf("\n%d ", line_num + 1); line_num++;}
+\n {fprintf(saida, "\n%d ", line_num + 1); //printf("\n%d", line_num + 1); line_num++;
+	}
 
-.  {printf("Erro lexico, padrao nao identificado na linha: %d\n", line_num); exit(1);}
+.  {printf("\n***** Erro lexico, padrao nao identificado na linha: %d *****\n", line_num); exit(1);}
 
 %%
 
 /*** seção de código C ***/
 void lexemefound(char *tipo){
 	//printf("lexema %s: %s \tna linha %d\n", tipo, yytext, line_num);
-	printf("%s", yytext);
+	//printf("%s", yytext);
 }
 
 void lexemefoundSintatico(){
@@ -94,3 +107,8 @@ void gravarSaida(){
 	fprintf(saida, "%s", yytext);
 }
 
+void instalarNaTS(){
+	simbolo_t *s = malloc(sizeof(simbolo_t));
+	strcpy(s->nome, strdup(yytext));
+	Instala(s->nome, *s);
+}
