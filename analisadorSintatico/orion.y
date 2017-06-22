@@ -70,7 +70,7 @@ int yyerror(char *s); // impressão de erro e o analisador para
 
 
 %%
-CODE: program { printf("\n***** Programa sintaticamente correto! *****\n"); }
+CODE: program
 	;
 
 program : PROGRAM M2 declaracoes M0 bloco
@@ -262,13 +262,13 @@ booleano : TRUE
 		 | FALSE
 		 ;
 
-identificador : IDENTIFIER
+identificador : IDENTIFIER {instalarNaTS();} //instalar identificador na Tabela de Símbolos (TS)
 			  ;
 
 %%
 
 extern int line_num;
-extern void lexemefoundSintatico();
+extern void lexemefoundErroSintatico();
 extern FILE *saida;
 extern simbolo_t tabela_simbolos[TAB_SIZE];
 
@@ -285,17 +285,24 @@ int main(int argc, char* argv[]){
 		return 1;
 	}
 
+	// arquivo de saida com o programa fonte
 	saida = fopen("saida.txt", "w");
+	
+	// Iniciar numeração do programa fonte no arquivo e no terminal, com valor 1
 	fprintf(saida, "%d ", line_num);
-	//printf("%d ", line_num);
+	printf("%d ", line_num);
 
-
+	// iniciar TS
 	iniciaListaNO();
 
-
-	yyparse();
+	// Executar o analisador sintático, retorna 0 quando o programa está correto
+	if(!yyparse()){
+		 printf("\n\n***** Programa sintaticamente correto! *****\n");
+	}
 	
 	printf("\n");
+
+	// Imprime a tabela de simbolos
 	Imprime_Tabela();
 
 	fclose(saida);
@@ -303,8 +310,9 @@ int main(int argc, char* argv[]){
 }
 
 int yyerror(char *s) {
-	printf("\n***** Erro sintatico na linha %d ou %d, verificar na vizinhanca do token: ", line_num - 1, line_num);
-	lexemefoundSintatico();
+	printf("\n\n***** Erro sintatico na linha %d ou %d, verificar na vizinhanca do token: ", line_num - 1, line_num);
+	fprintf(saida, "\n\n***** Erro sintatico na linha %d ou %d, verificar na vizinhanca do token: ", line_num - 1, line_num);
+	lexemefoundErroSintatico();
 }	
 
 int yywrap(){

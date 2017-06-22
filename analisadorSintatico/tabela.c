@@ -22,7 +22,8 @@ void Erro(int num)
 	switch (num) {
 		case 1: printf("\nTabela de Simbolos cheia\n"); break;
 		case 2: printf("\nItem nao foi encontrado\n"); break;
-		case 3: printf("\nItem ja foi inserido: "); break;
+		case 3: //printf("\nItem ja foi inserido: "); 
+				break;
 		default: ;
 	}
 }
@@ -73,7 +74,7 @@ int Recupera_Entrada(char* X)
         K--;
         if( !strcmp(X, tabela_simbolos[K].nome) ) {	// X ja pertence aa tabela
 			Erro(3);
-			printf("%s\n", X);
+			//printf("%s\n", X);
 			return;
 		}
 	}
