@@ -68,10 +68,10 @@ int yyerror(char *s); // impressão de erro e o analisador sintatico para
 CODE: program
 	;
 
-program : PROGRAM M2 declaracoes M0 bloco {Saida_Bloco();}
+program : PROGRAM M2 declaracoes M0 bloco 
         ;
 
-bloco   : BEG lista_de_comandos M0 END {Entrada_Bloco();}
+bloco   : BEG lista_de_comandos M0 END 
 	    ;
 
 declaracoes : declaracoes M0 declaracao SEMICOLON
@@ -120,7 +120,7 @@ limites : inteiro DOUBLEDOTS inteiro
 tipo_definido : identificador
 			  ;
 
-decl_de_proc : proc_cab pro_corpo {Entrada_Bloco();}
+decl_de_proc : proc_cab pro_corpo 
 			 ;
 
 proc_cab : tipo_retornado PROCEDURE M0 nome_do_proc espec_de_parametros
@@ -130,7 +130,7 @@ pro_corpo : DOUBLEDOTS declaracoes M0 bloco emit_return
 		  | emit_return
 		  ;
 
-emit_return : vazio {Saida_Bloco();}
+emit_return : vazio 
 			;
 
 lista_de_parametros : parametro
@@ -280,7 +280,7 @@ int main(int argc, char* argv[]){
 		
 	yyin = fopen(argv[1], "r"); // para leitura do arquivo com código fonte
 	if(yyin == NULL){
-		printf("Arquivo nao existe.\n");
+		printf("Arquivo nao encontrado.\n");
 		return 1;
 	}
 
