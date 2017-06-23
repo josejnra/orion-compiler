@@ -10,7 +10,7 @@
 #define T_INT 4
 #define T_CHAR 5
 
-#define MAX_NOME 50		/* tamanho maximo para um string */
+#define MAX_NOME 50		    /* tamanho maximo para um string */
 #define MAX_PARAMETROS 10	/* limite para o numero de parametros em um procedimento */
 #define TAB_SIZE 100		/* tamanho da tabela de simbolos */
 

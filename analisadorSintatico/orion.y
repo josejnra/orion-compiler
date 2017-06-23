@@ -2,15 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 #include "tabela.h"
 
-int yywrap();
-
-extern FILE* yyin; // para leitura do arquivo com código fonte
-extern FILE* yyout; // gravação das operações no analisador sintático
-int yylex();  // chamar o analisador léxico
-int yyerror(char *s); // impressão de erro e o analisador para
+int yylex();          // chamar o analisador léxico
+int yyerror(char *s); // impressão de erro e o analisador sintatico para
 
 %}
 
@@ -73,10 +68,10 @@ int yyerror(char *s); // impressão de erro e o analisador para
 CODE: program
 	;
 
-program : PROGRAM M2 declaracoes M0 bloco
+program : PROGRAM M2 declaracoes M0 bloco {Saida_Bloco();}
         ;
 
-bloco   : BEG lista_de_comandos M0 END
+bloco   : BEG lista_de_comandos M0 END {Entrada_Bloco();}
 	    ;
 
 declaracoes : declaracoes M0 declaracao SEMICOLON
@@ -91,10 +86,14 @@ declaracao : decl_de_var
 decl_de_var : tipo DOUBLEDOTS lista_de_ids 
 			;
 
-tipo : INTEGER
-	 | BOOLEAN
-	 | CHAR
-	 | tipo_definido
+tipo : INTEGER { // tipo 0
+                }
+	 | BOOLEAN { // tipo 1
+                }
+	 | CHAR { // tipo 2
+                }
+	 | tipo_definido { // tipo 3
+                }
 	 ;
 
 M0 : vazio
@@ -121,7 +120,7 @@ limites : inteiro DOUBLEDOTS inteiro
 tipo_definido : identificador
 			  ;
 
-decl_de_proc : proc_cab pro_corpo
+decl_de_proc : proc_cab pro_corpo {Entrada_Bloco();}
 			 ;
 
 proc_cab : tipo_retornado PROCEDURE M0 nome_do_proc espec_de_parametros
@@ -131,7 +130,7 @@ pro_corpo : DOUBLEDOTS declaracoes M0 bloco emit_return
 		  | emit_return
 		  ;
 
-emit_return : vazio
+emit_return : vazio {Saida_Bloco();}
 			;
 
 lista_de_parametros : parametro
@@ -255,7 +254,7 @@ int_ou_char : inteiro
 			| CONST_CHAR
 			;
 
-inteiro : NUM 
+inteiro : NUM
 		;
 
 booleano : TRUE
@@ -279,7 +278,7 @@ int main(int argc, char* argv[]){
 		exit(1);
 	}
 		
-	yyin = fopen(argv[1], "r");
+	yyin = fopen(argv[1], "r"); // para leitura do arquivo com código fonte
 	if(yyin == NULL){
 		printf("Arquivo nao existe.\n");
 		return 1;
@@ -315,6 +314,3 @@ int yyerror(char *s) {
 	lexemefoundErroSintatico();
 }	
 
-int yywrap(){
-	return(1);
-}
