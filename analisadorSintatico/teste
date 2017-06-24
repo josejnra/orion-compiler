@@ -9,7 +9,7 @@ begin
 	number1 := 1;
 	number2 := 7;
 	count := 1;
-	while(count <= number2)
+	while count <= number2)
 		number1 := number1 * count;
 		count++;
 	endwhile
