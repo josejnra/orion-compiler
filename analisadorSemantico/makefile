@@ -1,7 +1,7 @@
 # YACCFLAGS=-Wall
 DEBUG=--debug --verbose
-trans: lex.yy.c y.tab.c y.tab.h tabela.h tabela.c
-	gcc lex.yy.c y.tab.c tabela.h tabela.c -ll -ly -o a.out -g -w
+trans: lex.yy.c y.tab.c y.tab.h
+	gcc lex.yy.c y.tab.c -ll -ly -o a.out -g -w
 
 lex.yy.c: orion.l y.tab.h
 	lex orion.l

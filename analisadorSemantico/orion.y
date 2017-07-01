@@ -2,64 +2,75 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tabela.h"
-#include "CG.h"
-#include "SM.h"
+#include "ST.c" /* Symbol Table */
+#include "SM.c" /* Stack Machine */
+#include "CG.c" /* Code Generator */
+
+int yydebug = 0; /* For Debugging */
 
 int yylex();          // chamar o analisador léxico
 int yyerror(char *s); // impressão de erro e o analisador sintatico para
 
-struct lbs /* Labels for data, if and while */
-{
-	int for_goto;
-	int for_jmp_false;
+
+int errors; /* Error Count */
+
+struct lbs{ /* Labels for data, if and while */
+    int for_goto;
+    int for_jmp_false;
 };
 
-struct lbs * newlblrec() /* Allocate space for the labels */
-{
-	return (struct lbs *) malloc(sizeof(struct lbs));
+struct lbs * newlblrec(){ /* Allocate space for the labels */
+    return (struct lbs *) malloc(sizeof(struct lbs));
 }
 
-/******  Função que instala identificadores na Tabela de Simbolos (TS) ***********/
-void instalarNaTS( char *sym_name ){
-	simbolo_t *s = malloc(sizeof(simbolo_t));
-	strcpy(s->nome, strdup(yytext));
-	Instala(s->nome, *s);
+
+/*-------------------------------------------------------------------------
+Install identifier & check if previously defined.
+-------------------------------------------------------------------------*/
+install( char *sym_name ){
+
+	symrec *s;
+	s = getsym (sym_name);
+	if (s == 0)
+		s = putsym (sym_name);
+	else{ 
+		errors++;
+		//printf( "%s is already defined\n", sym_name );
+	}
 }
+
 /*-------------------------------------------------------------------------
 If identifier is defined, generate code
 -------------------------------------------------------------------------*/
-context_check( enum code_ops operation, char *sym_name )
-{ 
-	simbolo_t *identifier;
-	identifier = Recupera_Entrada( sym_name );
-	if ( identifier == 0 )
-		{   errors++;
-			printf( "%s", sym_name );
-			printf( "%s\n", " is an undeclared identifier" );
-		}
+context_check( enum code_ops operation, char *sym_name ){
+	symrec *identifier;
+	identifier = getsym( sym_name );
+	if ( identifier == 0 ){
+		errors++;
+        printf( "%s", sym_name );
+        printf( "%s\n", " is an undeclared identifier" );
+    }
 	else gen_code( operation, identifier->offset );
 }
+
 %}
 
-%union semrec /* The Semantic Records */
-{
+%union semrec{ /* The Semantic Records */
 	int intval; /* Integer values */
 	char *id; /* Identifiers */
 	struct lbs *lbls; /* For backpatching */
 }
 
-
-%start program
+%start CODE
 %token <intval> NUM /* Simple integer */
 %token <id> IDENTIFIER /* Simple identifier */
 %token <lbls> WHILE IF REPEAT /* For backpatching labels */
+
 %token BEG
 %token BOOLEAN
 %token CONST_CHAR
 %token CHAR
 %token DO
-%token ELSE
 %token END
 %token FALSE
 %token ENDIF
@@ -102,7 +113,7 @@ context_check( enum code_ops operation, char *sym_name )
 %left '+' '-'
 %left '*' '/'
 %right '='
-
+%nonassoc ELSE
 
 %%
 CODE: program
@@ -111,7 +122,7 @@ CODE: program
 program : PROGRAM M2 declaracoes M0 bloco 
         ;
 
-bloco   : BEG lista_de_comandos M0 END 
+bloco   : BEG { gen_code( PUSH, data_location() - 1 ); } lista_de_comandos M0 END { gen_code( HALT, 0 ); YYACCEPT; }
 	    ;
 
 declaracoes : declaracoes M0 declaracao SEMICOLON
@@ -126,14 +137,10 @@ declaracao : decl_de_var
 decl_de_var : tipo DOUBLEDOTS lista_de_ids 
 			;
 
-tipo : INTEGER { // tipo 0
-                }
-	 | BOOLEAN { // tipo 1
-                }
-	 | CHAR { // tipo 2
-                }
-	 | tipo_definido { // tipo 3
-                }
+tipo : INTEGER              
+	 | BOOLEAN              
+	 | CHAR             
+	 | tipo_definido                
 	 ;
 
 M0 : vazio
@@ -220,18 +227,24 @@ comando : comando_de_atribuicao
 		| rotulo DOUBLEDOTS comando
 		;
 
-comando_de_atribuicao : variavel ATTRIB expr
+comando_de_atribuicao : IDENTIFIER ATTRIB expr { context_check( STORE, $1 ); }
 					  ;
 
-comando_while : WHILE M0 expr DO M0 lista_de_comandos ENDWHILE
+comando_while : WHILE { $1 = (struct lbs *) newlblrec(); $1->for_goto = gen_label(); } 
+                M0 expr { $1->for_jmp_false = reserve_loc();}
+                DO M0 lista_de_comandos ENDWHILE { gen_code( GOTO, $1->for_goto ); back_patch( $1->for_jmp_false,
+                                                   JMP_FALSE, gen_label() ); };
 			  ;
 
-comando_repeat : REPEAT M0 lista_de_comandos UNTIL M0 expr
+comando_repeat : REPEAT { $1 = (struct lbs *) newlblrec(); $1->for_goto = gen_label(); }		
+                 M0 lista_de_comandos UNTIL M0 expr { gen_code( JMP_FALSE, gen_label()+2 ); gen_code( GOTO, $1->for_goto );}
 			   ;
 
 comando_if : IF expr THEN M0 lista_de_comandos ENDIF
-		   | IF expr THEN M0 lista_de_comandos M1 
-		     ELSE M0 lista_de_comandos ENDIF
+		   | IF expr { $1 = (struct lbs *) newlblrec(); $1->for_jmp_false = reserve_loc(); }
+             THEN M0 lista_de_comandos { $1->for_goto = reserve_loc(); }
+             M1 ELSE { back_patch( $1->for_jmp_false, JMP_FALSE, gen_label() ); }
+             M0 lista_de_comandos ENDIF { back_patch( $1->for_goto, GOTO, gen_label() ); }
 		   ;
 
 comando_read : READ variavel
@@ -249,7 +262,7 @@ comando_exit : EXIT identificador
 rotulo : identificador
 	   ;
 
-variavel : identificador
+variavel : IDENTIFIER { context_check( LD_VAR, $1 ); }
  		 | chamada_ou_indexacao
  		 ;
 
@@ -267,18 +280,18 @@ indices : variavel2 OPENPAR  expr
 variavel2 : identificador
 		  ;
 
-expr : expr OR M0 expr
-	 | expr AND M0 expr
-	 | NOT expr
-	 | expr NE expr
-	 | expr LT expr 
-     | expr GT expr
-     | expr GE expr
+expr : expr OR M0 expr { gen_code( ORC, 0 ); }
+	 | expr AND M0 expr { gen_code( ANDC, 0 ); }
+	 | NOT expr { gen_code( NOTC, 0 ); }
+	 | expr NE expr { gen_code( NEC, 0 ); }
+	 | expr LT expr { gen_code( LTC, 0 ); }
+     | expr GT expr { gen_code( GTC, 0 ); }
+     | expr GE expr { gen_code( GEC, 0 ); }
 	 | expr LE expr
-	 | expr PLUS expr
-	 | expr MINUS expr
-	 | expr MULT expr
-	 | expr DIV expr
+	 | expr PLUS expr { gen_code( ADDC, 0 ); }
+	 | expr MINUS expr { gen_code( SUBC, 0 ); }
+	 | expr MULT expr { gen_code( MULTC, 0 ); }
+	 | expr DIV expr { gen_code( DIVC, 0 ); }
 	 | expr EXP expr
 	 | MINUS expr %prec UMINUS
 	 | variavel
@@ -291,17 +304,17 @@ constante : int_ou_char
 		  ;
 
 int_ou_char : inteiro
-			| CONST_CHAR
+			| CHAR
 			;
 
-inteiro : NUM
+inteiro : NUM { gen_code( LD_INT, $1 ); }
 		;
 
 booleano : TRUE
 		 | FALSE
 		 ;
 
-identificador : IDENTIFIER {instalarNaTS();} //instalar identificador na Tabela de Símbolos (TS)
+identificador : IDENTIFIER { install($1); }
 			  ;
 
 %%
@@ -309,8 +322,7 @@ identificador : IDENTIFIER {instalarNaTS();} //instalar identificador na Tabela 
 extern int line_num;
 extern void lexemefoundErroSintatico();
 extern FILE *saida;
-extern simbolo_t tabela_simbolos[TAB_SIZE];
-
+FILE *yyin;
 
 int main(int argc, char* argv[]){	
 	if(argc != 2){
@@ -329,26 +341,31 @@ int main(int argc, char* argv[]){
 	
 	// Iniciar numeração do programa fonte no arquivo e no terminal, com valor 1
 	fprintf(saida, "%d ", line_num);
-	printf("%d ", line_num);
+	//printf("%d ", line_num);
 
-	// iniciar TS
-	iniciaListaNO();
-
+	errors = 0;
 	// Executar o analisador sintático, retorna 0 quando o programa está correto
 	if(!yyparse()){
 		 printf("\n\n***** Programa sintaticamente correto! *****\n");
 	}
 	
-	printf("\n");
-
-	// Imprime a tabela de simbolos
-	Imprime_Tabela();
+	printf("\n");	
 
 	fclose(saida);
+
+    /* Imprimir codigo 3 endereços */
+    print_code();
+
+	/* Imprimir Tabela de Símbolos */	
+	printarTS();
+
+	//printf("\n\nNumero de errors: %d\n", errors);
+
 	return 0;
 }
 
 int yyerror(char *s) {
+	errors++;
 	printf("\n\n***** Erro sintatico na linha %d ou %d, verificar na vizinhanca do token: ", line_num - 1, line_num);
 	fprintf(saida, "\n\n***** Erro sintatico na linha %d ou %d, verificar na vizinhanca do token: ", line_num - 1, line_num);
 	lexemefoundErroSintatico();

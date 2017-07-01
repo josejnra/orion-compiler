@@ -48,12 +48,10 @@ typedef struct simbolo_str
 
 simbolo_t tabela_simbolos[TAB_SIZE];
 
-#ifndef YYSTYPE
-#define YYSTYPE simbolo_t	/* Cada elemento da gramatica sera deste tipo */
-#endif
+//#ifndef YYSTYPE
+//#define YYSTYPE simbolo_t	/* Cada elemento da gramatica sera deste tipo */
+//#endif
 
-extern YYSTYPE yylval;
-extern int linha;
 extern FILE *yyin, *yyout;
 
 //Funcoes da TS

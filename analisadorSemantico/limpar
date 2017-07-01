@@ -1,2 +1,2 @@
 #!/bin/bash
-rm analisadorSintatico.out lex.yy.c y.output y.tab.c y.tab.h saida.txt
+rm a.out lex.yy.c y.output y.tab.c y.tab.h saida.txt

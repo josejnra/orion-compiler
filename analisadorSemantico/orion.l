@@ -1,16 +1,14 @@
 %{
-#define YYSTYPE char*
+// #define YYSTYPE char*
 #include "y.tab.h"
+#include "tabela.h"
 #include <stdlib.h>
 #include <string.h>
 
 int line_num = 1;
 void lexemefoundErroSintatico();
 
-extern void Instala(char* X, simbolo_t atribut);
 FILE *saida;
-
-extern simbolo_t tabela_simbolos[TAB_SIZE];
 
 %}
 
@@ -80,17 +78,17 @@ numero        [0-9]+
 
 
                             /******  Identificador ***********/
-{identificador}             { lexemefound("identificador"); yylval = strdup(yytext); return IDENTIFIER; }
+{identificador}             { lexemefound("identificador"); yylval.id = (char *) strdup(yytext); return IDENTIFIER; }
 
                             /******  Numeros ***********/
-{numero}                    { lexemefound("valor"); yylval = strdup(yytext); return NUM; }
+{numero}                    { lexemefound("valor"); yylval.intval = strdup(yytext); return NUM; }
 
                             /******  Espaços em branco e quebra de linhas ***********/
 [ ]                         { lexemefound("espaco em branco"); }
 [\t]                        { lexemefound("espaco em branco"); }
 [\r]                        { lexemefound("espaco em branco"); }
 
-\n                          { fprintf(saida, "\n%d ", line_num + 1); line_num++; printf("\n%d ", line_num + 1);  
+\n                          { fprintf(saida, "\n%d ", line_num + 1); line_num++; //printf("\n%d ", line_num + 1);  
                             }
 
                             /******  Padrão desconhecido ***********/
@@ -103,7 +101,7 @@ numero        [0-9]+
 /******  Função que imprime o código na tela do programa fonte ***********/
 void lexemefound(char *tipo){
 	//printf("lexema %s: %s \tna linha %d\n", tipo, yytext, line_num);
-	printf("%s", yytext);
+	//printf("%s", yytext);
 
 	// Gravar o código do programa fonte em um arquivo de saída 
 	fprintf(saida, "%s", yytext);
@@ -111,7 +109,6 @@ void lexemefound(char *tipo){
 
 /******  Função que imprime o último lexema onde foi identificado um erro sintático próximo ***********/
 void lexemefoundErroSintatico(){
-	printf("%s *****\n", yytext);
-	fprintf(saida, "%s *****\n", yytext);
+	printf("%s *****\n\n", yytext);
+	fprintf(saida, "%s *****\n\n", yytext);
 }
-
