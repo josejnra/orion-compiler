@@ -1,0 +1,12 @@
+program 
+	char    : group;
+	integer : weight, charge, distance;
+begin
+	distance := 2300;
+	read weight;
+	if weight > 60 then group := 5 + 97
+			       else group := (weight + 14) / 15 + 97
+	endif;	
+	charge := 36 + 2 * (distance / 1000);
+	write (charge)
+end
