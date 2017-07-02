@@ -1,7 +1,10 @@
 program
-integer : n;
+	integer : val, a;	
 begin
-while n < 10 do
-n := n + 1
-endwhile
+	val := 100;
+	a := 0;
+	while val > 0 do
+		val := val - 1;
+		a := a + 1
+	endwhile
 end
